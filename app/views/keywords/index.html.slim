@@ -1,0 +1,25 @@
+h1 Products
+/! Button trigger modal
+button.btn.btn-primary data-bs-target="#exampleModal" data-bs-toggle="modal" type="button"
+  | Add product
+/! Modal
+#exampleModal.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Modal title
+        button.btn-close aria-label="Close" data-bs-dismiss="modal" type="button"
+      .modal-body
+        =form_with model: @product do |form|
+          .ul
+            .li
+              =form.label :asin
+              =form.text_field :asin
+
+            =form.fields_for :keywords do |keywords_form|
+              .li
+                =keywords_form.label :title
+                =keywords_form.text_field :title
+          .modal-footer
+            button.btn.btn-secondary data-bs-dismiss="modal" type="button"  Close
+            button.btn.btn-primary =form.submit "Search"
