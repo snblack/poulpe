@@ -1,6 +1,6 @@
 p= 'New Product'
 
-= form_with model: @product do |f|
+= form_with url: products_path, action:'/products' do |f|
   p
   = f.label :asin
   = f.text_field :asin

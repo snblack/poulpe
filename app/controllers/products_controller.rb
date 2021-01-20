@@ -11,19 +11,22 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @asin = params[:product][:asin]
+    @asin = params[:asin]
 
     if @asin.match?(FORMAT_ASIN)
       @product = InfoProductService.new(@asin).call
     else
-      return redirect_to products_path, notice: text_error
+      flash.now[:notice] = text_error
+      return render :new
     end
 
-    return redirect_to products_path, notice: error_amazon if @product.errors.any?
-
-    if @product.save
+    if @product.errors.any?
+      flash.now[:notice] = error_amazon
+      render :new
+    elsif @product.save
       redirect_to products_path, notice: 'Your product succesfully added'
     else
+      flash.now[:notice] = 'Product not added'
       render :new
     end
   end
