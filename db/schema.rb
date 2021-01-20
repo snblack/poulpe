@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_085056) do
   enable_extension "plpgsql"
 
   create_table "keywords", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.bigint "product_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 2021_01_12_085056) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "title"
-    t.string "asin"
-    t.string "image"
+    t.string "title", null: false
+    t.string "asin", null: false
+    t.string "image", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -11,15 +11,16 @@ class ProductsController < ApplicationController
   def create
     asin = params[:product][:asin]
 
-    ## get title and image for product from Amazon
-    ## get product or errors
-    @product = InfoProductService.new(asin).call
+    if asin == ''
+      return redirect_to products_path, notice: 'Asin can not by empty'
+    else
+      @product = InfoProductService.new(asin).call
+    end
 
-   if @product.save
-     redirect_to products_path, notice: 'Your product succesfully added'
-   else
-     render :new
-   end
-
+    if @product.save
+      redirect_to products_path, notice: 'Your product succesfully added'
+    else
+      render :new
+    end
   end
 end
