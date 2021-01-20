@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  FORMAT_ASIN = /^B0[A-Z0-9]{8}$/
+
   def index
     @products = Product.all
     @keywords = Keyword.all
@@ -9,13 +11,15 @@ class ProductsController < ApplicationController
   end
 
   def create
-    asin = params[:product][:asin]
+    @asin = params[:product][:asin]
 
-    if asin == ''
-      return redirect_to products_path, notice: 'Asin can not by empty'
+    if @asin.match?(FORMAT_ASIN)
+      @product = InfoProductService.new(@asin).call
     else
-      @product = InfoProductService.new(asin).call
+      return redirect_to products_path, notice: text_error
     end
+
+    return redirect_to products_path, notice: error_amazon if @product.errors.any?
 
     if @product.save
       redirect_to products_path, notice: 'Your product succesfully added'
@@ -23,4 +27,19 @@ class ProductsController < ApplicationController
       render :new
     end
   end
+
+  private
+
+  def text_error
+    if @asin == ''
+      'Asin can not by empty'
+    else
+      'Wrong format ASIN'
+    end
+  end
+
+  def error_amazon
+    @product.errors.full_messages.join(': ')
+  end
+
 end

@@ -31,7 +31,7 @@ feature 'User can create product' do
 
     click_on 'Add'
 
-    expect(page).to have_content 'Asin does not exist'
+    expect(page).to have_content 'Wrong format ASIN'
   end
 
   scenario 'user create product with asin of non-existent goods' do
@@ -42,7 +42,7 @@ feature 'User can create product' do
 
     click_on 'Add'
 
-    expect(page).to have_content 'Product does not exist'
+    expect(page).to have_content 'Page not found: 404'
   end
 
 end
