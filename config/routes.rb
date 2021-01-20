@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-   resources :keywords, only: [:index]
+   resources :products do
+    resources :keywords, shallow: true
+  end
 end

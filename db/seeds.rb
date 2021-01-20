@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+Product.delete_all
+
+product1 = Product.create(asin: 'B009VOFRYU')
+product2 = Product.create(asin: 'B008ALADKI')

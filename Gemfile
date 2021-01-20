@@ -31,6 +31,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'pg'
 gem "slim-rails"
 gem 'bootstrap', '~> 5.0.0.beta1'
+gem "nokogiri"
+gem 'webrick'
+gem 'mechanize'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
