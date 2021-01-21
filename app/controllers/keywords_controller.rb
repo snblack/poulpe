@@ -1,4 +1,6 @@
 class KeywordsController < ApplicationController
+  FORMAT_KEYWORDS = /\w/
+
   def index
     @products = Product.all
     @keywords = Keyword.all
@@ -12,6 +14,13 @@ class KeywordsController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     list_keywords = params[:keyword][:list_keywords]
+
+    if list_keywords == ''
+      return redirect_to products_path, notice: "Please, add one and any phrases"
+    elsif !list_keywords.match?(FORMAT_KEYWORDS)
+      return redirect_to products_path, notice: "Wrong format ASIN"
+    end
+
     keywords = list_keywords.split("\n")
 
     #создать объект для каждого keyword in array
@@ -20,7 +29,7 @@ class KeywordsController < ApplicationController
       @keyword.save!
     end
 
-    redirect_to products_path
+    redirect_to products_path, notice: "Keywords for product succesfully added"
   end
 
   private
