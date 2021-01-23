@@ -1,0 +1,6 @@
+= form_with model: [@product, @keyword], class: 'new-keyword' do |f|
+  p
+  = f.label :list_keywords
+  = f.text_area :list_keywords
+
+  p= f.submit 'Create keyword'

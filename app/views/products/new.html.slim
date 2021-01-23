@@ -1,0 +1,8 @@
+p= 'New Product'
+
+= form_with url: products_path, action:'/products' do |f|
+  p
+  = f.label :asin
+  = f.text_field :asin
+  p
+  = f.submit 'Add'

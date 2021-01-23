@@ -1,0 +1,12 @@
+-if product.persisted?
+  p= '=============='
+  / p= image_tag(product.image, size: "200x125")
+  / p= image_tag(product.image, size: "200x125")
+  p= image_tag(product.image, width: "100")
+  p= product.title
+  p= product.asin
+  p= link_to 'Add keywords', new_product_keyword_path(product)
+
+  .keywords
+    -product.keywords.each do |key|
+      p= key.title
