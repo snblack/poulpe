@@ -34,12 +34,15 @@ class PositionService
 
     products.each do |product|
       count += 1
-      break if product.values.include?(asin)
-
-      
+      @answer = product.values.include?(asin)
+      break if @answer
     end
 
-    count
+    if @answer
+      count
+    else
+      'More 60'
+    end
   end
 
 end

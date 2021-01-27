@@ -1,5 +1,9 @@
 h1 Products
 
+p= line_chart Product.group_by_day(:created_at).count
+
+p= link_to 'Update positions', positions_path, method: :post
+
 .product
   =render @products
 

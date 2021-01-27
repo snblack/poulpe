@@ -33,8 +33,14 @@ gem "slim-rails"
 gem 'bootstrap', '~> 5.0.0.beta1'
 gem "nokogiri"
 gem 'webrick'
+
+#parsing
 gem 'mechanize'
 gem 'rexml'
+
+#graphics
+gem "chartkick"
+gem 'groupdate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

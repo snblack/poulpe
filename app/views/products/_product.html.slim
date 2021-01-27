@@ -10,3 +10,5 @@
   .keywords
     -product.keywords.each do |key|
       p= key.title
+      - if key.positions.last
+        p= key.positions.last.value
