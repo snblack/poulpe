@@ -11,6 +11,18 @@ import "bootstrap"
 import "../stylesheets/application"
 require("chartkick")
 require("chart.js")
+require("packs/highcharts")
+
+import Highcharts from 'highcharts';
+
+require('highcharts/modules/accessibility')(Highcharts);
+require("highcharts/modules/exporting")(Highcharts)
+require("highcharts/modules/annotations")(Highcharts)
+require("highcharts/modules/export-data")(Highcharts)
+
+
+window.Highcharts = Highcharts;
+
 
 Rails.start()
 Turbolinks.start()

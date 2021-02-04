@@ -7,8 +7,18 @@
   p= product.asin
   p= link_to 'Add keywords', new_product_keyword_path(product)
 
+  a href="#" onclick="this.style.backgroundColor='#009900';this.style.color='#FFFFFF';event.preventDefault();"
+    ="Paint it red"
+
+  - @data = Hash.new
   .keywords
     -product.keywords.each do |key|
       p= key.title
       - if key.positions.last
         p= key.positions.last.value
+        - key.positions.each do |position|
+          -@data[position.created_at.strftime("%Y-%m-%d").to_date] = position.value
+        =line_chart @data, adapter: "chartjs", width: "800px", height: "250px", defer: true,
+                          messages: {empty: "No data"},
+                          library: {scales: {yAxes: [{ticks: {reverse: true}}]}},
+                          xtitle: "Position", ytitle: "Time"

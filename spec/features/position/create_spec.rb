@@ -12,6 +12,5 @@ feature 'User can see last position' do
     expect(page).to have_content keyword.positions.last.value
     expect(page).to have_content 'Positions ware updated'
 
-    save_and_open_page
   end
 end
