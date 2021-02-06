@@ -1,5 +1,4 @@
-class InfoProductService
-
+class SnapshotService
   attr_reader :asin
 
   def initialize(asin)
@@ -16,7 +15,7 @@ class InfoProductService
       text_error = e.page.title.strip
       code_error = e.response_code
 
-      product = Product.new
+      snapshot = Snapshot.new
       product.errors.add("#{text_error}:", code_error )
       return product
     end
@@ -24,11 +23,16 @@ class InfoProductService
     title_not_formatted = page.title
     @title = title_not_formatted.slice(0..(title_not_formatted.rindex(':')-1)).gsub("Amazon.com: ", "")
 
-    # @image = page.search(".imgTagWrapper").search('img').first['data-old-hires']
     image_json = page.search(".imgTagWrapper").search('img').first['data-a-dynamic-image']
     @image = JSON.parse(image_json).keys.first
 
-    product = Product.new(title: @title, asin: @asin, image: @image)
-    product
+    @rating = page.search('#averageCustomerReviews').search('span.a-icon-alt').text
+
+    @reviews = page.search('#acrCustomerReviewText').text
+
+    snapshot = Snapshot.new(title: @title, image: @image, rating: @rating, reviews: @reviews)
+    snapshot
+
   end
+
 end

@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   end
 
   resources :positions
+  resources :snapshots
 
 end

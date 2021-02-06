@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_180120) do
+ActiveRecord::Schema.define(version: 2021_02_06_151708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,26 @@ ActiveRecord::Schema.define(version: 2021_01_25_180120) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "snapshots", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "image", null: false
+    t.string "rating", null: false
+    t.string "reviews", null: false
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_snapshots_on_product_id"
+  end
+
+  create_table "variances", force: :cascade do |t|
+    t.bigint "product_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_variances_on_product_id"
+  end
+
   add_foreign_key "keywords", "products"
   add_foreign_key "positions", "keywords"
+  add_foreign_key "snapshots", "products"
+  add_foreign_key "variances", "products"
 end

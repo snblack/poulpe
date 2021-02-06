@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @keywords = Keyword.all
+    gon.keywords = @keywords.as_json(:include => [:positions])
   end
 
   def new
