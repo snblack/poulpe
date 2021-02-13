@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Мы для каждого ключа создаем create_chart
   // и вставляем его в div c id этого ключа
   gon.keywords.forEach(function(key) {
-    // console.log(key.positions);
     var data = create_data(key)
-    var chart = create_chart(key, data, key.id)
+    var data_var = create_data_variance(key)
+    var chart = create_chart(key, data, key.id, data_var)
   });
 
   function create_data(key) {
@@ -20,7 +20,32 @@ document.addEventListener('DOMContentLoaded', function () {
     return data_with_positions
   }
 
-  function create_chart(key, data, keyword_id) {
+  function create_data_variance(key) {
+    var product = key.product
+    var variances = product.variances
+
+    let data_with_var = []
+
+    variances.forEach(function(variance) {
+      data_with_var.push({
+        point: {
+            xAxis: 0,
+            yAxis: 0,
+            x: Date.parse(variance.created_at),
+            y: 6
+        },
+        x: -10,
+        text: 'Product Changed'
+      })
+    });
+
+    return data_with_var
+  }
+
+  // Находим product относящийся к keyword
+  // Находим все variance по продукту
+
+  function create_chart(key, data, keyword_id, data_var) {
     // Now create the chart
     Highcharts.chart('chart key-id-' + keyword_id, {
 
@@ -44,32 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         annotations: [{
             draggable: '',
-            labels: [{
-                point: {
-                    xAxis: 0,
-                    yAxis: 0,
-                    x: 2,
-                    y: 18
-                },
-                x: -30,
-                text: 'Product Changed'
-            }, {
-                point: {
-                    xAxis: 0,
-                    yAxis: 0,
-                    x: 6,
-                    y: 12
-                },
-                text: 'Product Changed'
-            }, {
-                point: {
-                    xAxis: 0,
-                    yAxis: 0,
-                    x: 10,
-                    y: 40
-                },
-                text: 'Product Changed'
-            }]
+            labels: data_var
         }],
 
         xAxis: {
