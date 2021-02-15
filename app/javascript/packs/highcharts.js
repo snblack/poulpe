@@ -7,18 +7,38 @@ document.addEventListener('DOMContentLoaded', function () {
   gon.keywords.forEach(function(key) {
     var data = create_data(key)
     var data_var = create_data_variance(key)
-    var chart = create_chart(key, data, key.id, data_var)
+    var categories = create_categories(key)
+    var chart = create_chart(key, data, key.id, data_var, categories)
+    console.log(data)
+    console.log(categories)
   });
 
   function create_data(key) {
     let data_with_positions = []
 
     key.positions.forEach((pos) => {
-      data_with_positions.push([Date.parse(pos.created_at), parseInt(pos.value)])
+      // data_with_positions.push([pos.created_at, parseInt(pos.value)])
+      // data_with_positions.push({x: new Date(Date.parse(pos.created_at)).toLocaleDateString(), y: parseInt(pos.value) })
+      // data_with_positions.push([Date.parse(pos.created_at),parseInt(pos.value)])
+      data_with_positions.push(parseInt(pos.value))
     });
 
     return data_with_positions
   }
+
+  function create_categories(key) {
+    let data_categories = []
+
+    key.positions.forEach((pos) => {
+      // data_with_positions.push([pos.created_at, parseInt(pos.value)])
+      // data_with_positions.push({x: new Date(Date.parse(pos.created_at)).toLocaleDateString(), y: parseInt(pos.value) })
+      // data_with_positions.push([Date.parse(pos.created_at),parseInt(pos.value)])
+      data_categories.push(new Date(Date.parse(pos.created_at)).toLocaleDateString())
+    });
+
+    return data_categories
+  }
+
 
   function create_data_variance(key) {
     var product = key.product
@@ -45,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Находим product относящийся к keyword
   // Находим все variance по продукту
 
-  function create_chart(key, data, keyword_id, data_var) {
+  function create_chart(key, data, keyword_id, data_var, categories) {
     // Now create the chart
     Highcharts.chart('chart key-id-' + keyword_id, {
 
@@ -72,16 +92,29 @@ document.addEventListener('DOMContentLoaded', function () {
             labels: data_var
         }],
 
-        xAxis: {
-            type: 'datetime',
-            labels: {
+        // xAxis: {
+        //     type: 'datetime',
+        //     title: {
+        //         text: 'Date'
+        //     },
+        //
+        //     labels: {
+        //       format: '{value:%d/%m/%Y}'
+        //     }
+        // },
 
-            },
-            minRange: 5,
+        xAxis: {
+            categories: categories,
+            // type: 'datetime',
             title: {
                 text: 'Date'
-            }
+            },
+
+            // labels: {
+              // format: '{value:%d/%m/%Y}'
+            // }
         },
+
 
         yAxis: {
             startOnTick: true,
@@ -90,15 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
             reversed: true,
             title: {
                 text: 'Position'
-            },
-            labels: {
-                format: '{value}'
             }
         },
 
         tooltip: {
-            headerFormat: 'Position: {point.y} <br>',
-            pointFormat: '{point.x} day of week',
+            // headerFormat: '',
+            pointFormat: 'Position: {point.y} <br>',
             shared: true
         },
 
