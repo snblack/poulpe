@@ -1,8 +1,8 @@
 class SnapshotsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def create
-    @products = Product.all
+    @products = Product.where(user: current_user)
 
     @products.each do |product|
       snapshot = SnapshotService.new(product.asin).call

@@ -2,8 +2,9 @@ class InfoProductService
 
   attr_reader :asin
 
-  def initialize(asin)
+  def initialize(asin, user)
     @asin = asin
+    @user = user
   end
 
   def call
@@ -28,7 +29,7 @@ class InfoProductService
     image_json = page.search(".imgTagWrapper").search('img').first['data-a-dynamic-image']
     @image = JSON.parse(image_json).keys.first
 
-    product = Product.new(title: @title, asin: @asin, image: @image)
+    product = Product.new(title: @title, asin: @asin, image: @image, user: @user)
     product
   end
 end

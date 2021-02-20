@@ -3,11 +3,6 @@ class KeywordsController < ApplicationController
 
   FORMAT_KEYWORDS = /\w/
 
-  def index
-    @products = Product.all
-    @keywords = Keyword.all
-  end
-
   def new
     @product = Product.find(params[:product_id])
     @keyword = Keyword.new

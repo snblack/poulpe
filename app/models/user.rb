@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  has_many: :products, dependent: :delete_all
+  has_many :products, dependent: :delete_all
 end

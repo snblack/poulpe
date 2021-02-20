@@ -1,8 +1,8 @@
 class VariancesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    @variances = Variance.all
+    @variances = Variance.joins(:product).where(:product => {:user => current_user})
   end
 
   def show
