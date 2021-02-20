@@ -1,5 +1,5 @@
 class Position < ApplicationRecord
-  belongs_to :keyword, touch: true
+  belongs_to :keyword
 
   scope :today, -> { where(:created_at => (Time.now.beginning_of_day..Time.now.end_of_day)) }
 

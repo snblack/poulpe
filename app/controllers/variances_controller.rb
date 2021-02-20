@@ -1,4 +1,6 @@
 class VariancesController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @variances = Variance.all
   end

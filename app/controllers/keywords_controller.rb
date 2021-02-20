@@ -1,4 +1,6 @@
 class KeywordsController < ApplicationController
+  before_action :authenticate_user!
+
   FORMAT_KEYWORDS = /\w/
 
   def index
@@ -23,7 +25,6 @@ class KeywordsController < ApplicationController
 
     keywords = list_keywords.split("\n")
 
-    #создать объект для каждого keyword in array
     keywords.each do |key|
       @keyword = @product.keywords.new(title: key)
       @keyword.save!

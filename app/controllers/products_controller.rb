@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!
+
   FORMAT_ASIN = /^B0[A-Z0-9]{8}$/
 
   def index

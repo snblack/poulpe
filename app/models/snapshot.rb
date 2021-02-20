@@ -1,5 +1,5 @@
 class Snapshot < ApplicationRecord
-  belongs_to :product, touch: true
+  belongs_to :product
 
   def changed?(product)
     last_snapshot = product.snapshots.last
