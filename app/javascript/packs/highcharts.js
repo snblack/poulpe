@@ -5,68 +5,55 @@ document.addEventListener('DOMContentLoaded', function () {
   // Мы для каждого ключа создаем create_chart
   // и вставляем его в div c id этого ключа
   gon.keywords.forEach(function(key) {
-    var data = create_data(key)
-    var data_var = create_data_variance(key)
-    var categories = create_categories(key)
-    var chart = create_chart(key, data, key.id, data_var, categories)
-    console.log(data)
-    console.log(categories)
+    var array_date = create_data(key)
+
+    var positions = array_date[0]
+    var categories = array_date[1]
+
+    var variances = create_data_variance(key, positions, categories)
+
+    create_chart(key, positions, key.id, variances, categories)
   });
 
   function create_data(key) {
     let data_with_positions = []
-
-    key.positions.forEach((pos) => {
-      // data_with_positions.push([pos.created_at, parseInt(pos.value)])
-      // data_with_positions.push({x: new Date(Date.parse(pos.created_at)).toLocaleDateString(), y: parseInt(pos.value) })
-      // data_with_positions.push([Date.parse(pos.created_at),parseInt(pos.value)])
-      data_with_positions.push(parseInt(pos.value))
-    });
-
-    return data_with_positions
-  }
-
-  function create_categories(key) {
     let data_categories = []
 
-    key.positions.forEach((pos) => {
-      // data_with_positions.push([pos.created_at, parseInt(pos.value)])
-      // data_with_positions.push({x: new Date(Date.parse(pos.created_at)).toLocaleDateString(), y: parseInt(pos.value) })
-      // data_with_positions.push([Date.parse(pos.created_at),parseInt(pos.value)])
+    let positions = key.positions.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at))
+
+    positions.forEach((pos) => {
+      data_with_positions.push(parseInt(pos.value))
       data_categories.push(new Date(Date.parse(pos.created_at)).toLocaleDateString())
     });
 
-    return data_categories
+    return [data_with_positions, data_categories]
   }
 
-
-  function create_data_variance(key) {
-    var product = key.product
-    var variances = product.variances
+  function create_data_variance(key, positions, categories) {
+    var variances = key.product.variances
 
     let data_with_var = []
 
     variances.forEach(function(variance) {
+      let date = new Date(Date.parse(variance.created_at)).toLocaleDateString()
+      let index_in_categories = categories.indexOf(date)
+      var text = '<a href="/variances/"' + variance.id + ">Product Changed</a>"
       data_with_var.push({
         point: {
             xAxis: 0,
             yAxis: 0,
-            x: Date.parse(variance.created_at),
-            y: 6
+            x: index_in_categories,
+            y: positions[index_in_categories]
         },
-        x: -10,
-        text: 'Product Changed'
+        y:-20,
+        text: '<a href="/variances/' + variance.id + '">Product Changed</a>'
       })
     });
 
     return data_with_var
   }
 
-  // Находим product относящийся к keyword
-  // Находим все variance по продукту
-
-  function create_chart(key, data, keyword_id, data_var, categories) {
-    // Now create the chart
+  function create_chart(key, positions, keyword_id, variances, categories) {
     Highcharts.chart('chart key-id-' + keyword_id, {
 
         chart: {
@@ -89,30 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         annotations: [{
             draggable: '',
-            labels: data_var
+            labels: variances
         }],
-
-        // xAxis: {
-        //     type: 'datetime',
-        //     title: {
-        //         text: 'Date'
-        //     },
-        //
-        //     labels: {
-        //       format: '{value:%d/%m/%Y}'
-        //     }
-        // },
 
         xAxis: {
             categories: categories,
             // type: 'datetime',
             title: {
                 text: 'Date'
-            },
-
-            // labels: {
-              // format: '{value:%d/%m/%Y}'
-            // }
+            }
         },
 
 
@@ -127,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
         },
 
         tooltip: {
-            // headerFormat: '',
             pointFormat: 'Position: {point.y} <br>',
             shared: true
         },
@@ -142,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     enabled: false
                 }
             },
-            data: data,
+            data: positions,
             lineColor: Highcharts.getOptions().colors[1],
     				Color: Highcharts.getOptions().colors[4],
             fillOpacity: 0.5,
