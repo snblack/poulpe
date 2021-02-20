@@ -5,6 +5,7 @@
   p= product.title
   p= product.asin
   p= link_to 'Add keywords', new_product_keyword_path(product)
+  p= link_to 'Delete product', product_path(product), method: :delete
 
   .keywords
     -product.keywords.each do |key|
