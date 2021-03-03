@@ -12,7 +12,6 @@ import "../stylesheets/application"
 
 require("packs/highcharts")
 require("packs/black-dashboard")
-require("packs/sidebar")
 
 import Highcharts from 'highcharts';
 require('highcharts/modules/accessibility')(Highcharts);

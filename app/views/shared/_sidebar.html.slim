@@ -1,9 +1,15 @@
 .sidebar
   .sidebar-wrapper
     .logo
-      .simple-text.logo-normal href="javascript:void(0)"
-        a href="./"
-          p= Poulpe
+      / a.simple-text.logo-mini
+      /   / =image_tag('octopus.png', alt: "logo", size: 60)
+      /   | CT
+      / a.simple-text.logo-mini
+      /   | Poulpe
+      a.simple-text.logo-mini href="javascript:void(0)"
+        =image_tag('octopus.png', alt: "logo")
+      a.simple-text.logo-normal href="javascript:void(0)"
+        | Poulpe Tracker
     ul.nav
       -if active == "Keyword Tracker"
         li.active
