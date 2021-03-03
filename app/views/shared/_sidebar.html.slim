@@ -1,0 +1,25 @@
+.sidebar
+  .sidebar-wrapper
+    .logo
+      .simple-text.logo-normal href="javascript:void(0)"
+        a href="./"
+          p= Poulpe
+    ul.nav
+      -if active == "Keyword Tracker"
+        li.active
+          a href="../"
+            i.tim-icons.icon-chart-bar-32
+            p Keyword Tracker
+        li
+          a href="../variances"
+            i.tim-icons.icon-vector
+            p Variances of products
+      -elsif active == "Variances of products"
+        li
+          a href="../"
+            i.tim-icons.icon-chart-bar-32
+            p Keyword Tracker
+        li.active
+          a href="../variances"
+            i.tim-icons.icon-vector
+            p Variances of products

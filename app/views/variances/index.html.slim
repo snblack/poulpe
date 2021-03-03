@@ -1,4 +1,12 @@
-h1 Changes
+= render partial: 'shared/sidebar', locals: {active: "Variances of products"}
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Variances of products" }
 
-.variances
-  =render @variances
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        .variances
+          =render @variances
+
+  = render 'shared/footer'

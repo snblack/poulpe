@@ -1,9 +1,18 @@
-h1 Products
+= render partial: 'shared/sidebar', locals: {active: "Keyword Tracker"}
 
-p= link_to 'Update positions', positions_path, method: :post
-p= link_to 'Make snapshots', snapshots_path, method: :post
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Keyword Tracker" }
 
-.product
-  =render @products
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        p= link_to 'Update positions', positions_path, method: :post
+        p= link_to 'Make snapshots', snapshots_path, method: :post
 
-p= link_to 'Add product', new_product_path
+        .product
+          =render @products
+
+        p= link_to 'Add product', new_product_path
+
+  = render 'shared/footer'

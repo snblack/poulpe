@@ -1,0 +1,52 @@
+nav.navbar.navbar-expand-lg.navbar-absolute.navbar-transparent
+  .container-fluid
+    .navbar-wrapper
+      .navbar-toggle.d-inline
+        button.navbar-toggler type="button"
+          span.navbar-toggler-bar.bar1
+          span.navbar-toggler-bar.bar2
+          span.navbar-toggler-bar.bar3
+      a.navbar-brand href="javascript:void(0)"  =title
+    button.navbar-toggler aria-expanded="false" aria-label=("Toggle navigation") data-target="#navigation" data-toggle="collapse" type="button"
+      span.navbar-toggler-bar.navbar-kebab
+      span.navbar-toggler-bar.navbar-kebab
+      span.navbar-toggler-bar.navbar-kebab
+    #navigation.collapse.navbar-collapse
+      ul.navbar-nav.ml-auto
+        li.search-bar.input-group
+          button#search-button.btn.btn-link data-target="#searchModal" data-toggle="modal"
+            i.tim-icons.icon-zoom-split
+            span.d-lg-none.d-md-block Search
+        li.dropdown.nav-item
+          a.dropdown-toggle.nav-link data-toggle="dropdown" href="javascript:void(0)"
+          .notification.d-none.d-lg-block.d-xl-block
+          i.tim-icons.icon-sound-wave
+          p.d-lg-none
+            | Notifications
+          ul.dropdown-menu.dropdown-menu-right.dropdown-navbar
+            li.nav-link
+              a.nav-item.dropdown-item href="#"  Mike John responded to your email
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  You have 5 more tasks
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Your friend Michael is in town
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Another notification
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Another one
+        li.dropdown.nav-item
+          a.dropdown-toggle.nav-link data-toggle="dropdown" href="#"
+          .photo
+            =image_tag('anime3.png', alt: "Profile Photo")
+          b.caret.d-none.d-lg-block.d-xl-block
+          p.d-lg-none
+            'Log out'
+          ul.dropdown-menu.dropdown-navbar
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Profile
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Settings
+            li.dropdown-divider
+            li.nav-link
+              a.nav-item.dropdown-item href="javascript:void(0)"  Log out
+        li.separator.d-lg-none

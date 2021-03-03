@@ -12,6 +12,9 @@ module Poulpe
     config.load_defaults 6.1
     config.autoload_paths += [config.root.join('app')]
 
+    Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    Rails.application.config.assets.paths << Rails.root.join("app", "assets", "images")
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
