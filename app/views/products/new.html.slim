@@ -1,8 +1,21 @@
-p= 'New Product'
+= render partial: 'shared/sidebar', locals: {active: "Keyword Tracker"}
 
-= form_with url: products_path, action:'/products' do |f|
-  p
-  = f.label :asin
-  = f.text_field :asin
-  p
-  = f.submit 'Add'
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Keyword Tracker" }
+
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        h2= 'Log in'
+
+        .card.col-md-3
+          .card-body
+            = form_with url: products_path, action:'/products' do |f|
+              .form-group
+                = f.label :asin
+                = f.text_field :asin, autofocus: true, class:"form-control", placeholder:"Enter product ASIN"
+              .actions
+                = f.submit 'Add', class:'btn btn-primary'
+
+  = render 'shared/footer'

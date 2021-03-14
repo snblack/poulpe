@@ -12,6 +12,7 @@ import "../stylesheets/application"
 
 require("packs/highcharts")
 require("packs/black-dashboard")
+require("packs/bootstrap.min.js")
 
 import Highcharts from 'highcharts';
 require('highcharts/modules/accessibility')(Highcharts);

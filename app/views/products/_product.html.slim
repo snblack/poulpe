@@ -1,22 +1,63 @@
 -if product.persisted?
-  p= '=============='
+  tr
+    td.text-center.pointer data-toggle="collapse" href="#collapseKeywordsTable-#{product.id}" aria-expanded="false" aria-controls="collapseKeywordsTable-#{product.id}" =product.id
+    td.pointer data-toggle="collapse" href="#collapseKeywordsTable-#{product.id}" aria-expanded="false" aria-controls="collapseKeywordsTable-#{product.id}"
+      .image-table-div
+        =image_tag(product.image, width: "90", class:"image-table-img")
+    td.pointer data-toggle="collapse" href="#collapseKeywordsTable-#{product.id}" aria-expanded="false" aria-controls="collapseKeywordsTable-#{product.id}" =product.title
+    td =product.asin
+    td.td-actions.text-right
+      button.btn.btn-info.btn-link.btn-icon.btn-sm rel="tooltip" type="button" title="Add keywords"
+        = link_to '', new_product_keyword_path(product), class: "tim-icons icon-simple-add"
+        / = link_to 'Add keywords', new_product_keyword_path(product)
+      button.btn.btn-danger.btn-link.btn-icon.btn-sm rel="tooltip" type="button" title="Delete product"
+        = link_to '', product_path(product), method: :delete, class: "tim-icons icon-simple-remove"
+  tr.collapse id='collapseKeywordsTable-#{product.id}'
+    td colspan="5"
+      table.table.keywords
+        thead
+          tr
+            th #
+            th Keyword
+            th.text-center Current position
+            th.text-center Сhanges (30 days)
+            th.text-center Trend
+            th.text-center Actions
+        tbody
+          -product.keywords.each do |key|
+            tr
+              td =key.id
+              td =key.title
+              td.text-center =key.current_position
+              -if key.changes_thirty_days_ago == nil
+                td.text-center -
+              -elsif key.changes_thirty_days_ago > 0
+                td.text-center class="result_green" ="+#{key.changes_thirty_days_ago}"
+              -elsif key.changes_thirty_days_ago < 0
+                td.text-center class="result_red" ="#{key.changes_thirty_days_ago}"
+              td
+                i.link_modal data-target=".modal-trend" data-id='#{key.id}' data-toggle="modal"
+                  div[id='chart key-id-#{key.id}' class='chart']
+              td.td-actions.text-center
+                button.btn.btn-danger.btn-link.btn-icon.btn-sm rel="tooltip" type="button" title="Delete product"
+                  = link_to '', keyword_path(key), method: :delete, class: "tim-icons icon-simple-remove"
 
-  p= image_tag(product.image, width: "100")
-  p= product.title
-  p= product.asin
-  p= link_to 'Add keywords', new_product_keyword_path(product)
-  p= link_to 'Delete product', product_path(product), method: :delete
-
-  .keywords
-    -product.keywords.each do |key|
-      p= key.title
-      div[id='chart key-id-#{key.id}' class='chart']
-
-  .snapshots
-    p= '====Snapshots======='
-    -product.snapshots.each do |snap|
-      p= snap.title[0..30]
-      p= image_tag(snap.image, width: "100")
-      p= snap.rating
-      p= snap.reviews
-    p= '====Snapshots======='
+            /! Large modal
+            .modal.fade class="modal-trend" aria-hidden="true" aria-labelledby="myLargeModalLabel" role="dialog" tabindex="-1"
+              .modal-dialog.modal-lg
+                .modal-content
+                  .modal-header
+                    button.close aria-hidden="true" data-dismiss="modal" type="button"
+                    h5.modal-title Trend of keyword
+                  .modal-body id="modal-content"
+                  .modal-footer
+                    button.btn.btn-secondary data-dismiss="modal" type="button"  Close
+  /
+  / .snapshots
+  /   p= '====Snapshots======='
+  /   -product.snapshots.each do |snap|
+  /     p= snap.title[0..30]
+  /     p= image_tag(snap.image, width: "100")
+  /     p= snap.rating
+  /     p= snap.reviews
+  /   p= '====Snapshots======='

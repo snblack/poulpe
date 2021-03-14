@@ -1,15 +1,8 @@
 .sidebar
   .sidebar-wrapper
     .logo
-      / a.simple-text.logo-mini
-      /   / =image_tag('octopus.png', alt: "logo", size: 60)
-      /   | CT
-      / a.simple-text.logo-mini
-      /   | Poulpe
-      a.simple-text.logo-mini href="javascript:void(0)"
-        =image_tag('octopus.png', alt: "logo")
-      a.simple-text.logo-normal href="javascript:void(0)"
-        | Poulpe Tracker
+      = link_to image_tag('octopus.png', alt: "logo"), products_path, class:'simple-text logo-mini'
+      = link_to "Poulpe Tracker", products_path, class:'simple-text logo-normal'
     ul.nav
       -if active == "Keyword Tracker"
         li.active
@@ -19,8 +12,8 @@
         li
           a href="../variances"
             i.tim-icons.icon-vector
-            p Variances of products
-      -elsif active == "Variances of products"
+            p Product changes
+      -elsif active == "Product changes"
         li
           a href="../"
             i.tim-icons.icon-chart-bar-32
@@ -28,4 +21,4 @@
         li.active
           a href="../variances"
             i.tim-icons.icon-vector
-            p Variances of products
+            p Product changes

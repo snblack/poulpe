@@ -1,19 +1,26 @@
-h1 Variance
+= render partial: 'shared/sidebar', locals: {active: "Product changes"}
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Product changes" }
 
-p= @variance.created_at.strftime("%d/%m/%Y")
-p= '*******'
-p= 'Сейчас'
-p= "id: #{@snapshot.id}"
-p= @snapshot.title
-p= image_tag(@snapshot.image, width: "100")
-p= @snapshot.rating
-p= @snapshot.reviews
-p= '*******'
-p= '*******'
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        h1 Product change
 
-p= 'Вчера'
-p= "id: #{@snapshot_past.id}"
-p= @snapshot_past.title
-p= image_tag(@snapshot_past.image, width: "100")
-p= @snapshot_past.rating
-p= @snapshot_past.reviews
+        p= @variance.created_at.strftime("%d/%m/%Y")
+        b= 'New listing'
+        p= "id: #{@snapshot.id}"
+        p= @snapshot.title
+        p= image_tag(@snapshot.image, width: "100")
+        p= @snapshot.rating
+        p= @snapshot.reviews
+
+        b= 'Old listing'
+        p= "id: #{@snapshot_past.id}"
+        p= @snapshot_past.title
+        p= image_tag(@snapshot_past.image, width: "100")
+        p= @snapshot_past.rating
+        p= @snapshot_past.reviews
+
+  = render 'shared/footer'

@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 .chart {
-  height: 480px;
+  // height: 480px;
 }
 
 .highcharts-data-table table {
@@ -32,4 +32,33 @@
 }
 .highcharts-data-table tr:hover {
   background: #f1f7ff;
+}
+
+.highcharts-tooltip-box {
+	fill: white;
+	fill-opacity: 0.6;
+	stroke-width: 0;
+}
+
+.highcharts-tooltip text {
+	fill: black;
+}
+
+.image-table-div {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background-color: white;
+}
+
+.image-table-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	max-height: 95px;
+}
+
+.pointer {
+  cursor: pointer;
 }

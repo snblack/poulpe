@@ -9,9 +9,20 @@
       .col-12
         p= link_to 'Update positions', positions_path, method: :post
         p= link_to 'Make snapshots', snapshots_path, method: :post
+        table.table
+          thead
+            tr
+              th.text-center #
+              th Image
+              th Title
+              th ASIN
+              th.text-right Actions
+          tbody
+            = render @products
+        / = render partial: 'table'
 
-        .product
-          =render @products
+        / .product
+        /   =render @products
 
         p= link_to 'Add product', new_product_path
 

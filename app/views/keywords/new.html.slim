@@ -1,6 +1,20 @@
-= form_with model: [@product, @keyword], class: 'new-keyword' do |f|
-  p
-  = f.label :list_keywords
-  = f.text_area :list_keywords
+= render partial: 'shared/sidebar', locals: {active: "Keyword Tracker"}
 
-  p= f.submit 'Create keyword'
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Keyword Tracker" }
+
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        h2= 'Add keywords'
+        .card.col-md-3
+          .card-body
+            = form_with model: [@product, @keyword], class: 'new-keyword' do |f|
+              .form-group
+                = f.label :list_keywords
+                = f.text_area :list_keywords, autofocus: true, class:"form-control", placeholder:"Enter the keywords (one per line)"
+              .actions
+                = f.submit 'Create keyword', class:'btn btn-primary'
+
+  = render 'shared/footer'

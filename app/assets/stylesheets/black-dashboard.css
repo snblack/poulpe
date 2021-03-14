@@ -14496,7 +14496,7 @@ fieldset[disabled] .btn-link.active {
 }
 
 .dropdown-menu.dropdown-navbar {
-  left: -80px;
+  left: -0px;
 }
 
 .dropdown-menu.dropdown-navbar:before,
@@ -15922,6 +15922,10 @@ img {
   color: #ffffff;
 }
 
+.navbar-nav li a p {
+  color: #ffffff;
+}
+
 .navbar-nav li i {
   vertical-align: middle;
   font-size: 20px;
@@ -15969,7 +15973,6 @@ img {
 
   .navbar .navbar-nav a.nav-link p {
     display: inline-block;
-    text-transform: uppercase;
     margin-left: 7px;
   }
 
@@ -16425,8 +16428,8 @@ img {
 
   .navbar .caret {
     position: absolute;
-    left: 80%;
-    top: 55%;
+    left: 92%;
+    top: 51%;
     margin-left: 0;
   }
 
@@ -16658,7 +16661,7 @@ hr {
 }
 
 .table>tbody>tr>td {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .table>tbody>tr>td .photo {
@@ -16667,6 +16670,14 @@ hr {
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto;
+}
+
+.table>tbody>tr>td .result_green {
+  color: green
+}
+
+.table>tbody>tr>td .result_red {
+  color: red
 }
 
 .table>tbody>tr>td .photo img {

@@ -20,8 +20,8 @@ class PositionService
     # count position
     products = []
 
-    page.search('.sg-col-4-of-12.s-result-item.s-asin.sg-col-4-of-16.sg-col.sg-col-4-of-20').each do |product|
-      sponsored = product.search('span.a-size-mini.a-color-base').text
+    page.search('div .s-main-slot.s-search-results').search('div[data-component-type=s-search-result]').each do |product|
+      sponsored = product.search('a.s-sponsored-label-text').search('span[1]/span').text
       asin = product['data-asin']
 
       products.push(
@@ -29,6 +29,8 @@ class PositionService
         sponsored: sponsored
       )
     end
+
+    products = products.select { |pr| pr[:sponsored] == ''}
 
     count = 0
 
@@ -41,7 +43,7 @@ class PositionService
     if @answer
       count
     else
-      'More 60'
+      100
     end
   end
 

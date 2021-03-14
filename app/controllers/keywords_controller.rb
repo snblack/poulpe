@@ -28,6 +28,13 @@ class KeywordsController < ApplicationController
     redirect_to products_path, notice: "Keywords for product succesfully added"
   end
 
+  def destroy
+    @keyword = Keyword.find(params[:id])
+
+    @keyword.destroy
+    redirect_to products_path, notice: 'Keyword deleted'
+  end
+
   private
 
   def keywords_params
