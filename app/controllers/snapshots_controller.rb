@@ -13,7 +13,10 @@ class SnapshotsController < ApplicationController
       end
 
       snapshot.save
+      puts snapshot
     end
+
+    puts
 
     redirect_to products_path, notice: 'Snapshot was made'
   end

@@ -21,14 +21,14 @@ class SnapshotService
     end
 
     title_not_formatted = page.title
-    @title = title_not_formatted.slice(0..(title_not_formatted.rindex(':')-1)).gsub("Amazon.com: ", "")
+    @title = title_not_formatted.gsub("Amazon.com: ", "")
 
-    image_json = page.search(".imgTagWrapper").search('img').first['data-a-dynamic-image']
+    image_json = page.search("div[id=imgTagWrapperId] img").first['data-a-dynamic-image']
     @image = JSON.parse(image_json).keys.first
 
-    @rating = page.search('#averageCustomerReviews').search('span.a-icon-alt').text
+    @rating = page.search('#averageCustomerReviews span.a-icon-alt').first.text
 
-    @reviews = page.search('#acrCustomerReviewText').text
+    @reviews = page.search('#acrCustomerReviewText').first.text
 
     snapshot = Snapshot.new(title: @title, image: @image, rating: @rating, reviews: @reviews)
     snapshot

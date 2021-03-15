@@ -25,7 +25,7 @@ class InfoProductService
     title_not_formatted = page.title
     @title = title_not_formatted.gsub("Amazon.com: ", "")
 
-    image_json = page.search(".imgTagWrapper").search('img').first['data-a-dynamic-image']
+    image_json = page.search("div[id=imgTagWrapperId] img").first['data-a-dynamic-image']
     @image = JSON.parse(image_json).keys.first
 
     product = Product.new(title: @title, asin: @asin, image: @image, user: @user)

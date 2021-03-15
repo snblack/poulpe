@@ -17,34 +17,57 @@ class PositionService
     amazon_form['field-keywords'] = keyword
     page = agent.submit(amazon_form, amazon_form.buttons.first)
 
-    # count position
-    products = []
+    @count = 1
+    @products = []
+    @page = 2
 
+    count_pos(page)
+
+    if @answer
+      @count
+    else
+      while @page < 6 do
+        link_page = page.links_with(href: %r{.+&page=#{@page}.+}).first
+
+        if link_page
+          page = link_page.click
+        end
+
+        count_pos(page)
+
+        if @answer
+          break @count
+        end
+
+        @page +=1
+      end
+
+      100
+    end
+  end
+
+  private
+
+  def count_pos(page)
     page.search('div .s-main-slot.s-search-results').search('div[data-component-type=s-search-result]').each do |product|
       sponsored = product.search('a.s-sponsored-label-text').search('span[1]/span').text
       asin = product['data-asin']
 
-      products.push(
+      @products.push(
         asin: asin,
         sponsored: sponsored
       )
     end
 
-    products = products.select { |pr| pr[:sponsored] == ''}
+    @products = @products.select { |pr| pr[:sponsored] == ''}
 
-    count = 0
-
-    products.each do |product|
-      count += 1
-      @answer = product.values.include?(asin)
+    @products.each do |product|
+      @answer = product.values.include?(@asin)
       break if @answer
+      @count += 1
     end
 
-    if @answer
-      count
-    else
-      100
-    end
+    puts @products
   end
 
 end
