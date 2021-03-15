@@ -5,9 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-
-Product.delete_all
-
-product1 = Product.create(asin: 'B009VOFRYU')
-product2 = Product.create(asin: 'B008ALADKI')
+25.times do
+  Position.create!(value: Faker::Number.between(from: 1, to: 100), keyword_id: 13, created_at: Faker::Date.between(from: 365.days.ago, to: Date.today))
+end

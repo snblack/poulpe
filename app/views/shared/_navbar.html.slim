@@ -1,0 +1,25 @@
+nav.navbar.navbar-expand-lg.navbar-absolute.navbar-transparent
+  .container-fluid
+    .navbar-wrapper
+      .navbar-toggle.d-inline
+        button.navbar-toggler type="button"
+          span.navbar-toggler-bar.bar1
+          span.navbar-toggler-bar.bar2
+          span.navbar-toggler-bar.bar3
+      a.navbar-brand href="javascript:void(0)"  =title
+    button.navbar-toggler aria-expanded="false" aria-label=("Toggle navigation") data-target="#navigation" data-toggle="collapse" type="button"
+      span.navbar-toggler-bar.navbar-kebab
+      span.navbar-toggler-bar.navbar-kebab
+      span.navbar-toggler-bar.navbar-kebab
+    #navigation.collapse.navbar-collapse
+      ul.navbar-nav.ml-auto
+        li.dropdown.nav-item
+          a.dropdown-toggle.nav-link data-toggle="dropdown" href="#"
+            p.email
+              =current_user.email
+            b.caret.d-none.d-lg-block.d-xl-block
+          p.d-lg-none
+          ul.dropdown-menu.dropdown-navbar
+            li.nav-link
+              = link_to "Logout", destroy_user_session_path, method: :delete, class: "a nav-item dropdown-item"
+        li.separator.d-lg-none

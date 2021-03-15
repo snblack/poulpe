@@ -1,10 +1,7 @@
 class KeywordsController < ApplicationController
-  FORMAT_KEYWORDS = /\w/
+  before_action :authenticate_user!
 
-  def index
-    @products = Product.all
-    @keywords = Keyword.all
-  end
+  FORMAT_KEYWORDS = /\w/
 
   def new
     @product = Product.find(params[:product_id])
@@ -23,13 +20,19 @@ class KeywordsController < ApplicationController
 
     keywords = list_keywords.split("\n")
 
-    #создать объект для каждого keyword in array
     keywords.each do |key|
       @keyword = @product.keywords.new(title: key)
       @keyword.save!
     end
 
     redirect_to products_path, notice: "Keywords for product succesfully added"
+  end
+
+  def destroy
+    @keyword = Keyword.find(params[:id])
+
+    @keyword.destroy
+    redirect_to products_path, notice: 'Keyword deleted'
   end
 
   private

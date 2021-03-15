@@ -7,8 +7,20 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-import "bootstrap"
+// import "bootstrap"
 import "../stylesheets/application"
+
+require("packs/highcharts")
+require("packs/black-dashboard")
+require("packs/bootstrap.min.js")
+
+import Highcharts from 'highcharts';
+require('highcharts/modules/accessibility')(Highcharts);
+require("highcharts/modules/exporting")(Highcharts)
+require("highcharts/modules/annotations")(Highcharts)
+require("highcharts/modules/export-data")(Highcharts)
+window.Highcharts = Highcharts;
+
 
 Rails.start()
 Turbolinks.start()

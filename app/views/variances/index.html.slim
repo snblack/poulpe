@@ -1,0 +1,12 @@
+= render partial: 'shared/sidebar', locals: {active: "Product changes"}
+.main-panel
+  = render partial: 'shared/navbar', locals: { title: "Product changes" }
+
+  .content
+    = render 'shared/flash'
+    .row
+      .col-12
+        .variances
+          =render @variances
+
+  = render 'shared/footer'

@@ -1,9 +1,14 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!
+
   FORMAT_ASIN = /^B0[A-Z0-9]{8}$/
 
   def index
-    @products = Product.all
-    @keywords = Keyword.all
+    @products = Product.where(user: current_user)
+    @keywords = Keyword.joins(:product).where(:product => {:user => current_user})
+
+    gon.products = @products.as_json(:include => [:snapshots, :variances])
+    gon.keywords = @keywords.as_json(include: [:positions, {product: {include: :variances}}])
   end
 
   def new
@@ -14,7 +19,7 @@ class ProductsController < ApplicationController
     @asin = params[:asin]
 
     if @asin.match?(FORMAT_ASIN)
-      @product = InfoProductService.new(@asin).call
+      @product = InfoProductService.new(@asin, current_user).call
     else
       flash.now[:notice] = text_error
       return render :new
@@ -30,6 +35,14 @@ class ProductsController < ApplicationController
       render :new
     end
   end
+
+  def destroy
+    @product = Product.find(params[:id])
+
+    @product.destroy
+    redirect_to products_path, notice: 'Product deleted'
+  end
+
 
   private
 

@@ -2,8 +2,9 @@ class InfoProductService
 
   attr_reader :asin
 
-  def initialize(asin)
+  def initialize(asin, user)
     @asin = asin
+    @user = user
   end
 
   def call
@@ -22,13 +23,12 @@ class InfoProductService
     end
 
     title_not_formatted = page.title
-    @title = title_not_formatted.slice(0..(title_not_formatted.rindex(':')-1))
+    @title = title_not_formatted.gsub("Amazon.com: ", "")
 
-    # @image = page.search(".imgTagWrapper").search('img').first['data-old-hires']
-    image_json = page.search(".imgTagWrapper").search('img').first['data-a-dynamic-image']
+    image_json = page.search("div[id=imgTagWrapperId] img").first['data-a-dynamic-image']
     @image = JSON.parse(image_json).keys.first
 
-    product = Product.new(title: @title, asin: @asin, image: @image)
+    product = Product.new(title: @title, asin: @asin, image: @image, user: @user)
     product
   end
 end
