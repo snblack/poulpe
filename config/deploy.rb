@@ -5,7 +5,8 @@ set :application, "poulpe"
 set :repo_url, "git@github.com:snblack/poulpe.git"
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/root/poulpe"
+set :deploy_to, "/home/deployer/poulpe"
+set :deploy_user, 'deployer'
 
 # Default value for :linked_files is []
 append :linked_files, "config/database.yml", "config/master.key"

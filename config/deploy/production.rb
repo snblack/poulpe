@@ -3,7 +3,7 @@
 # Defines a single server with a list of roles and multiple properties.
 # You can define all roles on a single server, or split them:
 
-server "157.230.211.28", user: "root", roles: %w{app db web}, primary: true
+server "157.230.211.28", user: "deployer", roles: %w{app db web}, primary: true
 set :rail_env, :production
 
 
@@ -18,6 +18,6 @@ set :rail_env, :production
  set :ssh_options, {
    keys: %w(/Users/Snblack/.ssh/id_rsa),
    forward_agent: true,
-   auth_methods: %w(publickey),
+   auth_methods: %w(publickey password),
    port: 2222
  }
