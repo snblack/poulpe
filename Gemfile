@@ -50,6 +50,9 @@ gem 'devise'
 #generate fake data
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
+gem 'rack-mini-profiler', '~> 2.0'
+gem 'listen', '~> 3.3'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
